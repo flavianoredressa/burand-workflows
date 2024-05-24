@@ -1,0 +1,68 @@
+{
+  "name": "@burand/workflows",
+  "version": "1.0.0",
+  "sideEffects": false,
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "tsc --noEmit",
+    "build": "npm run clean && tsc"
+  },
+  "homepage": "https://github.com/flavianoredressa/burand-workflows",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flavianoredressa/burand-workflows.git"
+  },
+  "files": [
+    "lib/"
+  ],
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    "./interfaces": {
+      "types": "./lib/interfaces/index.d.ts",
+      "import": "./lib/interfaces/index.js"
+    },
+    "./mappers": {
+      "types": "./lib/mappers/index.d.ts",
+      "import": "./lib/mappers/index.js"
+    },
+    "./models": {
+      "types": "./lib/models/index.d.ts",
+      "import": "./lib/models/index.js"
+    },
+    "./repositories": {
+      "types": "./lib/repositories/index.d.ts",
+      "import": "./lib/repositories/index.js"
+    },
+    "./services": {
+      "types": "./lib/services/index.d.ts",
+      "import": "./lib/services/index.js"
+    },
+    "./triggers": {
+      "types": "./lib/triggers/index.d.ts",
+      "import": "./lib/triggers/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/index.d.ts",
+      "import": "./lib/types/index.js"
+    },
+    "./utils": {
+      "types": "./lib/utils/index.d.ts",
+      "import": "./lib/utils/index.js"
+    },
+    "./workers": {
+      "types": "./lib/workers/index.d.ts",
+      "import": "./lib/workers/index.js"
+    }
+  },
+  "dependencies": {
+    "@burand/functions": ">=3.0.0",
+    "firebase-admin": ">=11.0.0",
+    "tsyringe": ">=4.0.0"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  }
+}
