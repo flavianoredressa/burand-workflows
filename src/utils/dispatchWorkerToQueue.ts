@@ -1,18 +1,10 @@
 import { getFunctions } from 'firebase-admin/functions';
+import { WorkerDispatched } from './runStep.js';
 
-import { WorkerDispatched } from '../workers/onWorkerDispatched.js';
-
-interface Params extends WorkerDispatched<unknown> {
+interface Params extends WorkerDispatched {
   call: string;
 }
 
-export async function dispatchWorkerToQueue({ workerId, call, payload, stepName, userId }: Params): Promise<void> {
-  await getFunctions()
-    .taskQueue(call)
-    .enqueue({
-      payload,
-      workerId,
-      stepName,
-      userId
-    } satisfies WorkerDispatched<unknown>);
+export function dispatchWorkerToQueue({ workflowId, call }: Params): Promise<void> {
+  return getFunctions().taskQueue(call).enqueue({ workflowId });
 }

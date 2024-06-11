@@ -1,3 +1,2 @@
-export * from './WorkflowExecutionStep.js';
-export * from './WorkflowExecutionStepLog.js';
-export * from './WorkflowTemplateStep.js';
+export * from './WorkflowStep.js';
+export * from './WorkflowStepLog.js';

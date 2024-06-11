@@ -1,21 +1,13 @@
-import { WorkflowExecutionStep } from '../interfaces/WorkflowExecutionStep.js';
-import { WorkflowTemplateStep } from '../interfaces/WorkflowTemplateStep.js';
+import { WorkflowStep } from '../interfaces/WorkflowStep.js';
 
-export function mapWorkflowTemplateStepsToExecutionSteps(steps: WorkflowTemplateStep[]): WorkflowExecutionStep[] {
-  return steps.map(({ step, name, next, parallel, call }) => {
+export function mapWorkflowTemplateStepsToExecutionSteps(steps: string[]): WorkflowStep[] {
+  return steps.map(id => {
     return {
-      step,
-      name,
-      next,
-      parallel,
-      call,
       completedAt: null,
-      trace: [],
-      startedAt: null,
-      status: 'idle',
+      id,
       logs: [],
-      maxAttempts: 0,
-      retries: 0
-    } satisfies WorkflowExecutionStep;
+      startedAt: null,
+      status: 'idle'
+    } satisfies WorkflowStep;
   });
 }

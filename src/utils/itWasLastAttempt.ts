@@ -1,5 +1,3 @@
-import { WorkflowExecutionStep } from '../interfaces/WorkflowExecutionStep.js';
-
-export function itWasLastAttempt(step: WorkflowExecutionStep): boolean {
-  return step.retries === step.maxAttempts - 1;
+export function itWasLastAttempt(retries: number, maxAttempts: number): boolean {
+  return retries === maxAttempts - 1;
 }
