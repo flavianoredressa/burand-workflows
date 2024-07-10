@@ -13,18 +13,18 @@ export interface WorkerDispatched {
 }
 
 export async function runStep<T>(invokeFn: StepFunction<T>, event: Request<WorkerDispatched>): Promise<void> {
-  const payload = await getFirestore().runTransaction(async t => {
+  const { proceed, payload } = await getFirestore().runTransaction(async t => {
     const ref = getFirestore().collection(WORKFLOWS).doc(event.data.workflowId);
     const doc = await t.get(ref);
     const data = ofFirestore<Workflow<T>>(doc);
 
     const step = data.steps.find(s => s.id === invokeFn.id);
     if (!step) {
-      return false;
+      return { proceed: false, payload: null as T };
     }
 
     if (step.status === 'completed' || step.status === 'running') {
-      return false;
+      return { proceed: false, payload: null as T };
     }
 
     step.startedAt = new Date();
@@ -39,10 +39,10 @@ export async function runStep<T>(invokeFn: StepFunction<T>, event: Request<Worke
       updatedAt: new Date()
     });
 
-    return data.payload;
+    return { proceed: true, payload: data.payload };
   });
 
-  if (!payload) {
+  if (!proceed) {
     return;
   }
 
